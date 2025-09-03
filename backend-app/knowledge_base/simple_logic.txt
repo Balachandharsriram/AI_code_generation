@@ -1,0 +1,342 @@
+1. Turbine Speed Control with PI Controller
+Concept: Maintain turbine speed at desired setpoint while ensuring grid frequency stability, with overspeed trip protection.
+Inputs: Speed Sensor, Start Button, Overspeed Trip Signal.
+Outputs: Turbine Governor Valve, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Measure Speed → Compare with Setpoint → Adjust Governor Valve using PI control.
+IF Speed > Overspeed Limit THEN Trip Turbine, Alarm ON.
+ELSE System OFF.
+ENDIF.
+________________________________________
+2. Boiler Drum Level Control with 3-Element System
+Concept: Maintain stable drum water level using drum level, steam flow, and feedwater flow signals.
+Inputs: Drum Level Transmitter, Steam Flow Transmitter, Feedwater Flow Transmitter, Start Button.
+Outputs: Feedwater Control Valve, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Compare Drum Level with Setpoint → Adjust Feedwater Valve using Steam Flow and Feedwater Flow.
+IF Drum Level > High Limit OR < Low Limit THEN Alarm ON.
+ELSE System OFF.
+ENDIF.
+________________________________________
+3. Duty-Standby Pump System
+Concept: Ensure continuous pumping operation with automatic switchover in case of failure.
+Inputs: Start Button, Pressure Sensor, Pump1 Status, Pump2 Status.
+Outputs: Pump1 Motor, Pump2 Motor, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Run Pump1.
+IF Pump1 Fails OR Pressure < Limit THEN Start Pump2.
+Alternate Pumps after runtime.
+ELSE System OFF.
+ENDIF.
+________________________________________
+4. Adaptive Traffic Light Control
+Concept: Adjust green light timing dynamically based on vehicle density per lane.
+Inputs: Start Button, Vehicle Sensors (Lane A & Lane B).
+Outputs: Traffic Lights (Red/Yellow/Green).
+Written Logic:
+IF Start = ON THEN
+Give Green to Lane A → Monitor Vehicle Count.
+Switch to Lane B when Lane A is Empty or Timeout.
+Repeat Cycle.
+ELSE Lights OFF.
+ENDIF.
+________________________________________
+5. Emergency Shutdown (ESD) System
+Concept: Protect plant equipment by shutting down during unsafe conditions.
+Inputs: Start Button, Pressure Alarm, Temperature Alarm, Gas Leak Alarm.
+Outputs: Shutdown Relay, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Monitor All Alarms.
+IF Any Alarm = TRUE THEN Trip Equipment, Alarm ON.
+ELSE Keep Running.
+ELSE System OFF.
+ENDIF.
+________________________________________
+6. Robotic Arm Pick-and-Place
+Concept: Automate repetitive handling tasks with safety interlocks.
+Inputs: Start Button, Object Sensor, Position Sensors.
+Outputs: Robotic Arm Motors, Gripper, Indicator Light.
+Written Logic:
+IF Start = ON THEN
+Move Arm → Grip Object → Transfer to Drop Position → Release.
+Repeat Until Stop.
+ELSE Arm Idle.
+ENDIF.
+________________________________________
+7. Conveyor Sequencing System
+Concept: Control multiple conveyors in sequence to ensure smooth transfer.
+Inputs: Start Button, End Sensors of Each Conveyor.
+Outputs: Conveyor1, Conveyor2, Conveyor3 Motors.
+Written Logic:
+IF Start = ON THEN
+Run Conveyor1 → Stop when Sensor1 = TRUE → Start Conveyor2.
+Repeat for Conveyor3.
+ELSE System OFF.
+ENDIF.
+________________________________________
+8. Batch Mixing with Heating
+Concept: Automate raw material dosing, mixing, and heating for batch process.
+Inputs: Start Button, Level Sensors, Temperature Sensor.
+Outputs: Dosing Valves, Mixer Motor, Heater, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Open Dosing Valves → Mix for Set Time → Heat until Set Temp.
+IF Temp > Limit THEN Alarm ON.
+ELSE System OFF.
+ENDIF.
+________________________________________
+9. Generator Synchronization
+Concept: Synchronize generator with grid before breaker closure.
+Inputs: Start Button, Frequency Sensor, Voltage Sensor, Phase Angle Sensor.
+Outputs: Generator Excitation, Synchronizing Breaker.
+Written Logic:
+IF Start = ON THEN
+Match Frequency, Voltage, Phase → Close Breaker.
+ELSE Generator Idle.
+ENDIF.
+________________________________________
+10. Compressor Load Sharing with Surge Protection
+Concept: Run multiple compressors in parallel with surge prevention.
+Inputs: Start Button, Pressure Sensor, Compressor Status.
+Outputs: Compressor Motors, Surge Relief Valve.
+Written Logic:
+IF Start = ON THEN
+Run Compressors in Load Sharing.
+IF Surge Detected THEN Open Relief Valve.
+ELSE Continue.
+ELSE OFF.
+ENDIF.
+________________________________________
+11. Automatic Tank Filling with Dual Pumps
+Concept: Maintain tank level between low and high setpoints using two pumps in duty-standby mode.
+Inputs: Start Button, Low-Level Sensor, High-Level Sensor, Pump1 Status, Pump2 Status.
+Outputs: Pump1 Motor, Pump2 Motor, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+IF Low-Level = TRUE AND High-Level = FALSE THEN
+Start Pump1.
+IF Pump1 Fails THEN Start Pump2.
+ELSE IF High-Level = TRUE THEN
+Stop Both Pumps.
+ENDIF
+ELSE
+System OFF.
+ENDIF
+________________________________________
+12. Furnace Temperature Control with Safety Interlock
+Concept: Maintain furnace at set temperature with overtemperature trip.
+Inputs: Start Button, Temperature Sensor, Door Limit Switch.
+Outputs: Burner Valve, Exhaust Fan, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+IF Door Closed = TRUE THEN
+Compare Temp with Setpoint → Modulate Burner Valve.
+IF Temp > High Limit THEN Shut Burner, Alarm ON, Fan ON.
+ELSE
+Burner OFF, Fan ON, Alarm ON.
+ENDIF
+ELSE
+System OFF.
+ENDIF
+________________________________________
+
+13. Automated Packaging Line
+Concept: Fill, seal, and label products sequentially with jam detection.
+Inputs: Start Button, Bottle Sensor, Seal Sensor, Label Sensor, Jam Sensor.
+Outputs: Filler, Sealer, Labeler, Conveyor Motor, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Move Conveyor → IF Bottle Present THEN Activate Filler.
+After Filling → Start Sealer → Verify Seal Sensor.
+After Sealing → Start Labeler → Verify Label Sensor.
+IF Jam Sensor = TRUE THEN Stop Conveyor, Alarm ON.
+ELSE
+Line OFF.
+ENDIF
+________________________________________
+14. HVAC System with VFD Control
+Concept: Maintain building temperature by modulating fan speed and cooling coil valve.
+Inputs: Start Button, Room Temperature Sensor, Pressure Sensor, Occupancy Sensor.
+Outputs: Fan VFD, Cooling Coil Valve, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+IF Occupancy = TRUE THEN
+Compare Temp with Setpoint → Adjust Fan Speed & Coil Valve.
+IF Pressure > High Limit THEN Alarm ON, Reduce Speed.
+ELSE
+Fan at Minimum Speed.
+ENDIF
+ELSE
+System OFF.
+ENDIF
+________________________________________
+15. Water Treatment Plant (Filtration & Backwash)
+Concept: Run filter cycle and switch to backwash automatically after timer or pressure rise.
+Inputs: Start Button, Pressure Sensor, Flow Sensor, Timer.
+Outputs: Inlet Valve, Outlet Valve, Backwash Pump, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Open Inlet & Outlet → Run Filtration.
+IF Timer Expired OR Pressure > Limit THEN
+Stop Filtration → Close Inlet → Start Backwash Pump.
+After Backwash → Resume Normal Filtration.
+ENDIF
+ELSE
+System OFF.
+ENDIF
+________________________________________
+16. Boiler Drum Level Control
+Concept: Maintain boiler drum water level using two-element control with feedwater pump.
+Inputs: Start Button, Drum Level Sensor, Steam Flow Sensor, High-Level Alarm, Low-Level Alarm.
+Outputs: Feedwater Control Valve, Alarm Indicator, Trip Signal.
+Written Logic:
+IF Start = ON THEN
+Compare Drum Level & Steam Flow → Adjust Feedwater Valve.
+IF Drum Level > High Limit THEN Close Valve, Alarm ON.
+IF Drum Level < Low Limit THEN Open Valve Fully, Alarm ON.
+IF Level Critical THEN Trip Boiler.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+17. Automated Car Washing System
+Concept: Sequential washing, soaping, rinsing, and drying with safety interlocks.
+Inputs: Start Button, Car Position Sensor, Soap Sensor, Rinse Sensor, Emergency Stop.
+Outputs: Soap Pump, Rinse Pump, Dryer Fan, Conveyor Motor, Alarm Indicator.
+Written Logic:
+IF Start = ON AND Emergency Stop = FALSE THEN
+IF Car Detected THEN
+Start Conveyor → Soap Pump → Wait Until Soap Sensor = TRUE.
+Stop Soap → Start Rinse Pump → Wait Until Rinse Sensor = TRUE.
+Stop Rinse → Start Dryer.
+ENDIF
+IF Emergency Stop = TRUE THEN Stop All, Alarm ON.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+18. Cement Kiln Speed Control
+Concept: Maintain kiln rotation speed and prevent overheating.
+Inputs: Start Button, Kiln Speed Sensor, Temperature Sensor.
+Outputs: Kiln Motor VFD, Cooling Fan, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Compare Speed with Setpoint → Adjust VFD.
+IF Temperature > Limit THEN Increase Cooling Fan, Alarm ON.
+IF Speed > Safety Limit THEN Trip Motor, Alarm ON.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+19. Oil Pipeline Pumping Station
+Concept: Control pressure and flow with pump sequencing and safety trip.
+Inputs: Start Button, Flow Sensor, Pressure Sensor, Pump1 Status, Pump2 Status.
+Outputs: Pump1 Motor, Pump2 Motor, Relief Valve, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Maintain Pressure by Modulating Pump1.
+IF Flow Demand > Pump1 Capacity THEN Start Pump2.
+IF Pressure > High Limit THEN Open Relief Valve, Alarm ON.
+IF Both Pumps Fail THEN Shutdown, Alarm ON.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+20. Pharmaceutical Batch Reactor
+Concept: Maintain reaction temperature and mixing speed with safety interlock.
+Inputs: Start Button, Temperature Sensor, Mixer Status, Emergency Stop.
+Outputs: Heater, Mixer Motor, Cooling Valve, Alarm Indicator.
+Written Logic:
+IF Start = ON AND Emergency Stop = FALSE THEN
+Start Mixer.
+Compare Temperature with Setpoint → Control Heater/Cooling Valve.
+IF Temp > High Limit THEN Shut Heater, Open Cooling Valve, Alarm ON.
+ELSE
+Stop Mixer & Heater.
+ENDIF
+________________________________________
+21. Mining Conveyor Belt Control
+Concept: Ensure safe material transport with sequential startup and emergency stop.
+Inputs: Start Button, Belt Speed Sensor, Emergency Stop, Material Sensor.
+Outputs: Conveyor Motor, Alarm Indicator, Trip Relay.
+Written Logic:
+IF Start = ON AND Emergency Stop = FALSE THEN
+Start Conveyor → Verify Speed Sensor.
+IF Material Present THEN Continue Running.
+IF Belt Speed < Minimum THEN Trip Motor, Alarm ON.
+IF Emergency Stop = TRUE THEN Stop Immediately.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+22. Automated Painting Robot
+Concept: Paint parts sequentially with position feedback and overspray detection.
+Inputs: Start Button, Position Sensor, Paint Flow Sensor, Overspray Sensor.
+Outputs: Robot Arm Motor, Paint Spray Valve, Exhaust Fan, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Move Robot Arm to Position → Open Spray Valve.
+Monitor Flow → IF Flow = Abnormal THEN Alarm ON, Stop Spray.
+IF Overspray Detected THEN Activate Exhaust Fan.
+ELSE
+Stop Robot Arm, Close Spray.
+ENDIF
+________________________________________
+23. Food Processing Conveyor with Sorting
+Concept: Sort products by weight with reject mechanism.
+Inputs: Start Button, Weight Sensor, Position Sensor.
+Outputs: Conveyor Motor, Reject Actuator, Alarm Indicator.
+Written Logic:
+IF Start = ON THEN
+Run Conveyor → Measure Weight.
+IF Weight > Limit THEN Activate Reject Actuator.
+IF Weight Sensor Fault THEN Stop Conveyor, Alarm ON.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+24. Hydroelectric Dam Gate Control
+Concept: Maintain reservoir level by adjusting spillway gates automatically.
+Inputs: Start Button, Water Level Sensor, Flow Sensor, Emergency Signal.
+Outputs: Gate Motor, Alarm Indicator, Trip Signal.
+Written Logic:
+IF Start = ON THEN
+Compare Level with Setpoint → Adjust Gate Motor.
+IF Level > Safety Limit THEN Open Gates Fully, Alarm ON.
+IF Emergency Signal = TRUE THEN Close All Gates Immediately.
+ELSE
+Gates Closed.
+ENDIF
+________________________________________
+25. Automated Airport Baggage Handling
+Concept: Route baggage using barcode scanner and diverter arms with jam detection.
+Inputs: Start Button, Barcode Scanner, Jam Sensor, Emergency Stop.
+Outputs: Conveyor Motor, Diverter Arm, Alarm Indicator.
+Written Logic:
+IF Start = ON AND Emergency Stop = FALSE THEN
+Run Conveyor → Scan Barcode.
+Route Bag via Diverter Arm.
+IF Jam Sensor = TRUE THEN Stop Conveyor, Alarm ON.
+ELSE
+System OFF.
+ENDIF
+________________________________________
+26. 4-way traffic light system
+Concept: Control traffic flow at a 4-way intersection with sequential light cycles for North, South, East, and West, ensuring only one direction has Green/Yellow at a time.
+Inputs: Start Button, Timer, (optional Vehicle Sensors for adaptive mode).
+Outputs: Traffic Lights (North, South, East, West → Red/Yellow/Green).
+Written Logic:
+IF Start = ON THEN
+    North → Green (T1), Yellow (T2), then Red.
+    South → Green (T1), Yellow (T2), then Red.
+    East → Green (T1), Yellow (T2), then Red.
+    West → Green (T1), Yellow (T2), then Red.
+    Repeat cycle continuously.
+ELSE
+    All Signals → Red (System OFF).
+ENDIF
+________________________________________
